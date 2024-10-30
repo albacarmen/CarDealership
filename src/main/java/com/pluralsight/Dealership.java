@@ -24,7 +24,6 @@ public class Dealership {
         return inventory;
     }
 
-
     public String getName() {
         return name;
     }

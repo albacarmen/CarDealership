@@ -1,5 +1,6 @@
 package com.pluralsight;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -55,17 +56,17 @@ public class UserInterface {
 
         Vehicle newVehicle = new Vehicle(vin, year, make, model, type, color, odometer, price);
         dealership.addVehicle(newVehicle);
-        fileManager.saveDealership(dealership); // Save changes
+        fileManager.saveDealership(dealership);
         System.out.println("Vehicle added successfully.");
     }
 
     private void removeVehicle() {
         System.out.print("Enter VIN of the vehicle to remove: ");
         String vin = scanner.next();
-        Vehicle vehicleToRemove = dealership.getVehiclesByVIN(vin); // Implement this method in Dealership
+        Vehicle vehicleToRemove = dealership.getVehiclesByVIN(vin);
         if (vehicleToRemove != null) {
             dealership.removeVehicle(vehicleToRemove);
-            fileManager.saveDealership(dealership); // Save changes
+            fileManager.saveDealership(dealership);
             System.out.println("Vehicle removed successfully.");
         } else {
             System.out.println("Vehicle not found.");
@@ -73,11 +74,31 @@ public class UserInterface {
     }
 
     private void searchVehicle() {
-        // Implement search logic
+        System.out.print("Enter VIN of the vehicle to search: ");
+        String vin = scanner.next();
+        Vehicle foundVehicle = dealership.getVehiclesByVIN(vin);
+
+        if (foundVehicle != null) {
+            System.out.printf("Found Vehicle: VIN: %s, Make: %s, Model: %s, Year: %d, Price: %.2f%n",
+                    foundVehicle.getVin(), foundVehicle.getMake(), foundVehicle.getModel(), foundVehicle.getYear(), foundVehicle.getPrice());
+        } else {
+            System.out.println("Vehicle not found.");
+        }
     }
 
     private void showVehiclesByPriceRange() {
-        // Implement price range filtering
+        System.out.print("Enter minimum price: ");
+        double minPrice = scanner.nextDouble();
+        System.out.print("Enter maximum price: ");
+        double maxPrice = scanner.nextDouble();
+
+        List<Vehicle> vehiclesInRange = dealership.getVehiclesByPriceRange(minPrice, maxPrice);
+
+        if (vehiclesInRange.isEmpty()) {
+            System.out.println("No vehicles found in this price range.");
+        } else {
+            displayVehicles(vehiclesInRange);
+        }
     }
 
     private void displayVehicles(List<Vehicle> vehicles) {
@@ -91,4 +112,5 @@ public class UserInterface {
         }
     }
 }
+
 
