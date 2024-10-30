@@ -100,15 +100,16 @@ public class UserInterface {
             displayVehicles(vehiclesInRange);
         }
     }
-
-    private void displayVehicles(List<Vehicle> vehicles) {
-        if (vehicles.isEmpty()) {
-            System.out.println("No vehicles found.");
-            return;
-        }
-        for (Vehicle vehicle : vehicles) {
-            System.out.printf("VIN: %s, Make: %s, Model: %s, Year: %d, Price: %.2f%n",
-                    vehicle.getVin(), vehicle.getMake(), vehicle.getModel(), vehicle.getYear(), vehicle.getPrice());
+    private static void displayVehicles() {
+            String formatter = "| %-6s | %-15s | %-15s | %-5d | %-8d | $%.2f |%n";
+            System.out.format("+--------+-----------------+-----------------+-------+----------+------------+%n");
+            System.out.printf("| VIN    | Make            | Model           | Year  | Mileage  | Price      |%n");
+            System.out.format("+--------+-----------------+-----------------+-------+----------+------------+%n");
+            for (Vehicle vehicle : vehicles) {
+                System.out.format(formatter, vehicle.getVin(), vehicle.getMake(), vehicle.getModel(),
+                        vehicle.getYear(), vehicle.getOdometer(), vehicle.getPrice());
+            }
+            System.out.format("+--------+-----------------+-----------------+-------+----------+------------+%n");
         }
     }
 }
