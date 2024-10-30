@@ -1,7 +1,7 @@
 package com.pluralsight;
 
 public class Vehicle {
-    private String vin; // Changed to String for VIN format
+    private String vin;
     private int year;
     private String make;
     private String model;
@@ -12,7 +12,7 @@ public class Vehicle {
 
     // Constructor
     public Vehicle(int vin, int year, String make, String model, String vehicletype, String color, int odometer, double price) {
-        this.vin = vin;
+        this.vin = String.valueOf(vin);
         this.year = year;
         this.make = make;
         this.model = model;

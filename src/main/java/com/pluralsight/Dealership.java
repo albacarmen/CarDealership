@@ -1,13 +1,13 @@
-package com.pluralsight.;
+package com.pluralsight;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Dealership {
-    private String name;
-    private String address;
-    private String phone;
-    private List<Vehicle> inventory;
+    private final String name;
+    private final String address;
+    private final String phone;
+    private final List<Vehicle> inventory;
 
     public Dealership(String name, String address, String phone) {
         this.name = name;
@@ -24,7 +24,7 @@ public class Dealership {
         return inventory;
     }
 
-    // Getters for dealership info
+
     public String getName() {
         return name;
     }

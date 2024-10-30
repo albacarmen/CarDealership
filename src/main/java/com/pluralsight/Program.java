@@ -9,6 +9,9 @@ public class Program {
     public static void main(String[] args) {
         String fileName = "dealership.csv";
         DealershipFileManager fileManager = new DealershipFileManager(fileName);
+        UserInterface ui = new UserInterface(fileName);
+
+        ui.display();
 
         // Load dealership
         dealership = fileManager.getDealership();
