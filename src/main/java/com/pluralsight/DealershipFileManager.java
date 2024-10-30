@@ -1,10 +1,9 @@
 package com.pluralsight;
 
 import java.io.*;
-import java.util.ArrayList;
 
 public class DealershipFileManager {
-    private String fileName;
+    private final String fileName;
 
     public DealershipFileManager(String fileName) {
         this.fileName = fileName;
