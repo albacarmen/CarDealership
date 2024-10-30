@@ -1,7 +1,7 @@
 package com.pluralsight;
 
 public class Vehicle {
-    private int vin;
+    private String vin; // Changed to String for VIN format
     private int year;
     private String make;
     private String model;
@@ -10,22 +10,24 @@ public class Vehicle {
     private int odometer;
     private double price;
 
-    //Constructor
-    public Vehicle(int vin, int year, String make, String model, String vehicletype, String color, int odometer, double price)
-        this.vin =vin;
-        this.year =year;
-        this.make =make;
-        this.model =model;
-        this.vehicletype =vehicletype;
-        this.color =color;
-        this.odometer =odomoter;
-        this.price =price;
+    // Constructor
+    public Vehicle(String vin, int year, String make, String model, String vehicletype, String color, int odometer, double price) {
+        this.vin = vin;
+        this.year = year;
+        this.make = make;
+        this.model = model;
+        this.vehicletype = vehicletype;
+        this.color = color;
+        this.odometer = odometer;
+        this.price = price;
+    }
 
-    public int getVin() {
+    // Getters and Setters
+    public String getVin() {
         return vin;
     }
 
-    public void setVin(int vin) {
+    public void setVin(String vin) {
         this.vin = vin;
     }
 
@@ -84,4 +86,11 @@ public class Vehicle {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Vehicle [VIN=%s, Year=%d, Make=%s, Model=%s, Type=%s, Color=%s, Odometer=%d, Price=%.2f]",
+                vin, year, make, model, vehicletype, color, odometer, price);
+    }
 }
+
