@@ -85,9 +85,7 @@ public class Dealership {
         return vehicles;
     }
 
-    /**
-     * Searches vehicles by color.
-     */
+
     public List<Vehicle> getVehiclesByColor(String color) {
         List<Vehicle> vehicles = new ArrayList<>();
 

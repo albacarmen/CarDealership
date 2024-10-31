@@ -5,9 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 
-/**
- * Handles reading from and writing to the dealership's data file.
- */
+
 public class DealershipFileManager {
     private final String fileName; // File name for dealership data
     private final Dealership dealership; // Instance of Dealership
@@ -17,9 +15,7 @@ public class DealershipFileManager {
         this.dealership = new Dealership("", "", ""); // Initialize dealership with empty values
     }
 
-    /**
-     * Loads dealership data from a file.
-     */
+
     public Dealership getDealership() {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
             String input;
@@ -68,9 +64,7 @@ public class DealershipFileManager {
         return null;
     }
 
-    /**
-     * Overwrites dealership data into a file.
-     */
+
     public void overwriteDealership(Dealership dealership) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName))) {
             // Write dealership details to the file
