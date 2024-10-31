@@ -1,57 +1,98 @@
 package com.pluralsight;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 
+/**
+ * Handles reading from and writing to the dealership's data file.
+ */
 public class DealershipFileManager {
-    private final String fileName;
+    private final String fileName; // File name for dealership data
+    private final Dealership dealership; // Instance of Dealership
 
-    public DealershipFileManager(String fileName) {
-        this.fileName = fileName;
+    public DealershipFileManager() {
+        this.fileName = "new_dealership_data.csv"; // New file name for dealership data
+        this.dealership = new Dealership("", "", ""); // Initialize dealership with empty values
     }
 
+    /**
+     * Loads dealership data from a file.
+     */
     public Dealership getDealership() {
-        Dealership dealership = null;
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-            String line = br.readLine();
-            if (line != null) {
-                String[] dealershipInfo = line.split("\\|");
-                dealership = new Dealership(dealershipInfo[0].trim(), dealershipInfo[1].trim(), dealershipInfo[2].trim());
-            }
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
+            String input;
 
-            while ((line = br.readLine()) != null) {
-                String[] vehicleData = line.split("\\|");
-                Vehicle vehicle = new Vehicle(
-                        Integer.parseInt(vehicleData[0].trim()),
-                        Integer.parseInt(vehicleData[1].trim()),
-                        vehicleData[2].trim(),
-                        vehicleData[3].trim(),
-                        vehicleData[4].trim(),
-                        vehicleData[5].trim(),
-                        Integer.parseInt(vehicleData[6].trim()),
-                        Double.parseDouble(vehicleData[7].trim())
-                );
-                if (dealership != null) {
+            // Vehicle attributes
+            int vin;
+            int year;
+            String make;
+            String model;
+            String vehicleType;
+            String color;
+            int odometer;
+            double price;
+
+            // Read lines from the file
+            while ((input = bufferedReader.readLine()) != null) {
+                String[] strings = input.split("\\|");
+
+                // Read dealership details if there are 3 parts
+                if (strings.length == 3) {
+                    String name = strings[0];
+                    String address = strings[1];
+                    String phone = strings[2];
+                }
+
+                // Read vehicle details if there are 8 parts
+                if (strings.length == 8) {
+                    vin = Integer.parseInt(strings[0]);
+                    year = Integer.parseInt(strings[1]);
+                    make = strings[2];
+                    model = strings[3];
+                    vehicleType = strings[4];
+                    color = strings[5];
+                    odometer = Integer.parseInt(strings[6]);
+                    price = Double.parseDouble(strings[7]);
+
+                    // Create a Vehicle object and add it to the dealership
+                    Vehicle vehicle = new Vehicle(vin, year, make, model, vehicleType, color, odometer, price);
                     dealership.addVehicle(vehicle);
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            return dealership; // Return the populated dealership object
+        } catch (Exception e) {
+            System.err.println("Error: Unable to read file."); // Error handling
         }
-        return dealership;
+        return null;
     }
 
-    public void saveDealership(Dealership dealership) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(fileName))) {
-            writer.println(dealership.getName() + "|" + dealership.getAddress() + "|" + dealership.getPhone());
+    /**
+     * Overwrites dealership data into a file.
+     */
+    public void overwriteDealership(Dealership dealership) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName))) {
+            // Write dealership details to the file
+            bufferedWriter.write(dealership.getName() + "|" + dealership.getAddress() + "|" + dealership.getPhone());
+            bufferedWriter.newLine();
+            // Write each vehicle's details to the file
             for (Vehicle vehicle : dealership.getAllVehicles()) {
-                writer.println(vehicle.getVin() + "|" + vehicle.getYear() + "|" + vehicle.getMake() + "|" +
-                        vehicle.getModel() + "|" + vehicle.getVehicletype() + "|" + vehicle.getColor() + "|" +
-                        vehicle.getOdometer() + "|" + vehicle.getPrice());
+                bufferedWriter.write(vehicle.getVin() + "|" +
+                        vehicle.getYear() + "|" +
+                        vehicle.getMake() + "|" +
+                        vehicle.getModel() + "|" +
+                        vehicle.getVehicleType() + "|" +
+                        vehicle.getColor() + "|" +
+                        vehicle.getOdometer() + "|" +
+                        vehicle.getPrice());
+                bufferedWriter.newLine();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("Error: Unable to write file: " + e.getMessage()); // Error handling
         }
     }
 }
+
 
 
