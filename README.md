@@ -40,7 +40,7 @@ Filter Vehicles by Price Range: Narrow down options based on budget.
 Error Management: Handle errors gracefully for a smoother user experience.
 
 ![ShowAllVehicles.png](src%2Fmain%2Fresources%2FShowAllVehicles.png)
-![ShowVehiclesByPrice.png](src%2Fmain%2Fresources%2FShowVehiclesByPrice.png)
+
 
 ## Future Enhancements
 Looking ahead, potential improvements may include: Additional features determined by user feedback.
